@@ -6,7 +6,6 @@ const fetchItem = async (item) => {
     return take;
   } catch (erro) { return erro.message; }
 };
-// fetchItem('MLB1919875941'); // teste!
 
 if (typeof module !== 'undefined') {
   module.exports = {

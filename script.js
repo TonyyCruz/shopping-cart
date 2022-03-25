@@ -16,7 +16,6 @@ function createCustomElement(element, className, innerText) {
 }
 
 function createProductItemElement({ sku, name, image }) {
-  // console.log(image);
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -31,8 +30,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
+function cartItemClickListener(event) { // remove conteudo selecionado do carrinho<===
+  console.log(event.target); // teste
+  cartIems.removeChild(event.target);
+  saveCartItems(cartIems);
 }
 
 function createCartItemElement({ sku, name, salePrice, image }) {
@@ -46,16 +47,16 @@ function createCartItemElement({ sku, name, salePrice, image }) {
 
 //  inicio do meu código <-------------------
 
-//  adiciona funcionalidade ao botão adda carrinho <====
+//  adiciona funcionalidade ao botão adicionar a carrinho <====
 const addCartButtonConfig = (obj, id) => {
   const butt = obj.querySelector('.item__add');
-  butt.id = id;
+  butt.id = id; // teste
   butt.addEventListener('click', async () => {
-  const cardItem = await fetchItem(id);
+  const cardItem = await fetchItem(id); //  recebe o objeto do item pelo id
   const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
   const itemAdd = createCartItemElement({ sku, name, salePrice, image });
   cartIems.appendChild(itemAdd);
-  console.log(salePrice);
+  saveCartItems(cartIems); //  salva os itens do carrinho no localstorage
   });
 };
 
@@ -68,19 +69,17 @@ const displayItems = async (find) => {
     const element = createProductItemElement({ sku, name, image });
     addCartButtonConfig(element, sku);
     items.appendChild(element);
-    // element.querySelector('.item__add').id = sku; // adiciona um id ao botão.
   });
 };
 
-//  
-// addButton.addEventListener('click', () => {
-//   // console.log(event);
-//   // createCartItemElement();
-// });
-
+const cartStorageRerelease = () => { // *******************
+  const cartRelease = getSavedCartItems();
+  console.log(cartRelease); // teste
+  cartIems.innerHTML = cartRelease;
+};
 //
 
 window.onload = () => {
   displayItems('computador');
-  // fetchItem('MLB1919875941');
+  // cartStorageRerelease();
 };
