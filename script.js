@@ -1,5 +1,6 @@
 const items = document.querySelector('.items');
 const cartIems = document.querySelector('.cart__items');
+const emptyCart = document.querySelector('.empty-cart');
 
 //
 
@@ -120,6 +121,11 @@ const cartStorageRerelease = () => {
 //   h3.innerHTML = `Subtotal: <b>RS ${valor}</b>`;
 //   cart.appendChild(h3);
 // };
+
+emptyCart.addEventListener('click', () => {
+  cartIems.innerHTML = '';
+  cartStatusReload();
+});
 
 //
 
