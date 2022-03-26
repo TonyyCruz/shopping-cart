@@ -31,7 +31,6 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) { // remove conteudo selecionado do carrinho<===
-  console.log(event.target); // teste
   cartIems.removeChild(event.target);
   saveCartItems(cartIems);
 }
@@ -50,7 +49,6 @@ function createCartItemElement({ sku, name, salePrice, image }) {
 //  adiciona funcionalidade ao botão adicionar a carrinho <====
 const addCartButtonConfig = (obj, id) => {
   const butt = obj.querySelector('.item__add');
-  butt.id = id; // teste
   butt.addEventListener('click', async () => {
   const cardItem = await fetchItem(id); //  recebe o objeto do item pelo id
   const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
@@ -74,12 +72,15 @@ const displayItems = async (find) => {
 
 const cartStorageRerelease = () => { // *******************
   const cartRelease = getSavedCartItems();
-  console.log(cartRelease); // teste
   cartIems.innerHTML = cartRelease;
+  cartIems.childNodes
+  .forEach((li) => {
+    li.addEventListener('click', cartItemClickListener);
+  });
 };
 //
 
 window.onload = () => {
   displayItems('computador');
-  // cartStorageRerelease();
+  cartStorageRerelease();
 };

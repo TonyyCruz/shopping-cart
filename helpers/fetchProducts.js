@@ -3,7 +3,7 @@ const fetchProducts = async (find) => {
   try {
     const products = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${find}`)
     .then((items) => items.json());
-    console.log(products.results[0]);
+    // console.log(products.results[0]);
     return products.results;
   } catch (erro) { return erro.message; }
 };
