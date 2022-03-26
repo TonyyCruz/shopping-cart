@@ -1,3 +1,4 @@
+//  busca o item pelo id
 const fetchItem = async (item) => {
   // npm run test:coverage
   try {
