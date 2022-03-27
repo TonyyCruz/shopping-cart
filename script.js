@@ -49,7 +49,6 @@ const cartItensSum = () => {
   let toPay = 0;
   const carItem = document.querySelectorAll('.cart__item');
   carItem.forEach(async (element) => {
-  console.log(element);
     const valor = await fetchItem(element.id);
     toPay += valor.price;
     totalCartPrice(toPay); // não funciona se for chamado fora do forEach *********
@@ -122,13 +121,14 @@ const cartStorageRerelease = () => {
 //   cart.appendChild(h3);
 // };
 
+//  esvazia o carrinho de compras <====
 emptyCart.addEventListener('click', () => {
   cartIems.innerHTML = '';
   cartStatusReload();
 });
 
 //  desabilita a frase de carregamento <====
-//  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb"
+/*  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb" */
 const preload = () => {
   document.querySelector('.loading').style.display = 'none';
   document.querySelector('.container').style.display = 'flex';
