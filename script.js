@@ -45,13 +45,14 @@ const carReset = () => { //  função para resetar o valor do carrinho <====
   if (cartIems.children.length === 0) { totalCartPrice(0); }
 };
 
-const cartItensSum = () => {
+const cartItensSum = async () => {
   let toPay = 0;
   const carItem = document.querySelectorAll('.cart__item');
-  carItem.forEach(async (element) => {
+  carItem.forEach(async (element, i) => {
     const valor = await fetchItem(element.id);
     toPay += valor.price;
-    totalCartPrice(toPay); // não funciona se for chamado fora do forEach *********
+  // chama a função que atribui o preço no ultimo for.
+    if (i + 1 === carItem.length) { totalCartPrice(toPay); } 
   });
 };
 
