@@ -38,7 +38,7 @@ function createProductItemElement({ sku, name, image }) {
 //  atribui o valor total ao carrinho <====
 const totalCartPrice = (valor = 0) => { //  nao esta resetando o valor, precisou de outra funcao
   const subtotalPrice = document.querySelector('.total-price');
-  subtotalPrice.innerHTML = `Subtotal: RS ${valor}`;
+  subtotalPrice.innerHTML = `Subtotal: R$ ${valor}`;
 };
 
 const carReset = () => { //  função para resetar o valor do carrinho <====
@@ -127,10 +127,18 @@ emptyCart.addEventListener('click', () => {
   cartStatusReload();
 });
 
+//  desabilita a frase de carregamento <====
+//  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb"
+const preload = () => {
+  document.querySelector('.loading').style.display = 'none';
+  document.querySelector('.container').style.display = 'flex';
+};
+
 //
 
 window.onload = () => {
   displayItems('computador');
   cartStorageRerelease();
   cartStatusReload();
+  preload();
 };
