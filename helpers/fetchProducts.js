@@ -3,7 +3,7 @@ const fetchProducts = async (find) => {
     if (!find) { throw new Error('You must provide an url'); }
     const products = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${find}`)
     .then((items) => items.json());
-    return products.results;
+    return products;
 };
 
 if (typeof module !== 'undefined') {

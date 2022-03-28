@@ -41,9 +41,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// function getSkuFromProductItem(item) { // não usei <<<<<
-//   return item.querySelector('span.item__sku').innerText;
-// }
+function getSkuFromProductItem(item) { // não usei <<<<<****************
+  return item.querySelector('span.item__sku').innerText;
+}
 
 //  atribui o valor total ao carrinho <====
 const totalCartPrice = (valor = 0) => { //  nao esta resetando o valor, precisou de outra funcao
@@ -68,7 +68,7 @@ const cartItensSum = async () => {
   });
 };
 
-//  atualiza o carrinho ao adicionar ou remover itens <====****
+//  atualiza o carrinho ao adicionar ou remover itens <====
 const cartStatusReload = () => {
   carReset();
   cartItensSum();
@@ -103,7 +103,7 @@ const preloadOff = () => {
   container.style.display = 'flex';
 };
 
-//  adiciona funcionalidade ao botão adicionar a carrinho <====
+//  adiciona funcionalidade ao botão adicionar a carrinho <====***********
 const addCartButtonConfig = (obj, id) => {
   const butt = obj.querySelector('.item__add');
   butt.addEventListener('click', async () => {
@@ -119,7 +119,7 @@ const addCartButtonConfig = (obj, id) => {
 // depois envia os itens para "createProductItemElement()" que monta o item no site.
 const displayItems = async (find) => {
   const itemsArray = await fetchProducts(find);
-  itemsArray.forEach((make) => {
+  itemsArray.results.forEach((make) => {
     const { id: sku, title: name, thumbnail: image } = make;
     const element = createProductItemElement({ sku, name, image });
     addCartButtonConfig(element, sku);
