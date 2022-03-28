@@ -38,7 +38,7 @@ function createProductItemElement({ sku, name, image }) {
 //  atribui o valor total ao carrinho <====
 const totalCartPrice = (valor = 0) => { //  nao esta resetando o valor, precisou de outra funcao
   const subtotalPrice = document.querySelector('.total-price');
-  subtotalPrice.innerHTML = `Subtotal: R$ ${valor}`;
+  subtotalPrice.innerHTML = `Subtotal: R$ ${parseFloat(valor.toFixed(2))}`;
 };
 
 const carReset = () => { //  função para resetar o valor do carrinho <====
@@ -47,12 +47,14 @@ const carReset = () => { //  função para resetar o valor do carrinho <====
 
 const cartItensSum = async () => {
   let toPay = 0;
+  let cont = -1;
   const carItem = document.querySelectorAll('.cart__item');
-  carItem.forEach(async (element, i) => {
+  carItem.forEach(async (element) => {
     const valor = await fetchItem(element.id);
+    cont += 1;
     toPay += valor.price;
-  // chama a função que atribui o preço no ultimo for.
-    if (i + 1 === carItem.length) { totalCartPrice(toPay); } 
+  // chama a função que atribui o preço no ultimo for, que esta sendo comparado com um contador.
+    if (cont === carItem.length) { totalCartPrice(toPay); } 
   });
 };
 
@@ -82,6 +84,19 @@ function createCartItemElement({ sku, name, salePrice, image }) {
 //
 //  inicio do meu código <---------------------------------------------------------------
 
+//  desabilita a frase de carregamento <====
+/*  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb" */
+const preloadOff = () => {
+  document.querySelector('.loading').style.display = 'none';
+  document.querySelector('.container').style.display = 'flex';
+};
+
+//  ativa a frase de carregamento <====
+const preloadOn = () => {
+  document.querySelector('.loading').style.display = 'flex';
+  document.querySelector('.container').style.display = 'none';
+};
+
 //  adiciona funcionalidade ao botão adicionar a carrinho <====
 const addCartButtonConfig = (obj, id) => {
   const butt = obj.querySelector('.item__add');
@@ -97,6 +112,7 @@ const addCartButtonConfig = (obj, id) => {
 //  envia o item buscado  para "fetchProducts()" que envia um array com os itens <====
 // depois envia os itens para "createProductItemElement()" que monta o item no site.
 const displayItems = async (find) => {
+  preloadOn();
   const itemsArray = await fetchProducts(find);
   itemsArray.forEach((make) => {
     const { id: sku, title: name, thumbnail: image } = make;
@@ -128,18 +144,11 @@ emptyCart.addEventListener('click', () => {
   cartStatusReload();
 });
 
-//  desabilita a frase de carregamento <====
-/*  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb" */
-const preload = () => {
-  document.querySelector('.loading').style.display = 'none';
-  document.querySelector('.container').style.display = 'flex';
-};
-
 //
 
 window.onload = () => {
-  displayItems('computador');
+  displayItems('botebook');
   cartStorageRerelease();
   cartStatusReload();
-  preload();
+  preloadOff();
 };

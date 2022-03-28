@@ -1,11 +1,11 @@
 //  faz a busca do produto através do nome.
 const fetchProducts = async (find) => {
   try {
+    if (!find) { throw new Error('You must provide an url'); }
     const products = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${find}`)
     .then((items) => items.json());
-    // console.log(products.results[0]);
     return products.results;
-  } catch (erro) { return erro.message; }
+  } catch (erro) { throw erro.message; }
 };
 
 if (typeof module !== 'undefined') {
