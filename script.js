@@ -2,17 +2,17 @@ const items = document.querySelector('.items');
 const cartIems = document.querySelector('.cart__items');
 const emptyCart = document.querySelector('.empty-cart');
 const container = document.querySelector('.container');
+const body = document.querySelector('body');
 
 //
 
-// const createLoadingDiv = () => {
-//   const div = document.createElement('div');
-//   div.innerHTML = 'carregando...';
-//   div.classList.add('loading');
-//   container.appendChild(div);
-//   console.log(div);
-// };
-// createLoadingDiv();
+//  cria a div do load <====
+const createLoadingDiv = () => {
+  const div = document.createElement('div');
+  div.innerHTML = 'carregando...';
+  div.classList.add('loading');
+  body.appendChild(div);
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -98,9 +98,8 @@ function createCartItemElement({ sku, name, salePrice, image }) {
 //  desabilita a frase de carregamento <====
 /*  baseado em "https://www.youtube.com/watch?v=1WpoqviwrPM&t=618s&ab_channel=ilustraCode-Programa%C3%A7%C3%A3oWeb" */
 const preloadOff = () => {
-  // const loading = document.querySelector('.loading');
-  const load = document.querySelector('#load');
-  load.style.display = 'none';
+  const load = document.querySelector('.loading');
+  body.removeChild(load);
   container.style.display = 'flex';
 };
 
@@ -152,8 +151,9 @@ emptyCart.addEventListener('click', () => {
 
 //
 
-window.onload = () => {
-  displayItems('botebook');
+window.onload = async () => {
+  createLoadingDiv();
+  await displayItems('botebook');
   cartStorageRerelease();
   cartStatusReload();
   preloadOff();
