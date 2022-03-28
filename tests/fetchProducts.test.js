@@ -26,9 +26,14 @@ describe('1 - Teste a função fecthProducts', () => {
     const exp = await fetchProducts("computador");
     expect(exp).toMatchObject(computadorSearch.results);
   });
+
   it('Verifica se ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: You must provide an url', async () => {
     expect.assertions(1);
-    expect(await fetchProducts()).toThrow(new Error('You must provide an url'));
+    try {
+      await fetchProducts();
+    } catch (erro) {
+      expect(erro).toEqual(new Error('You must provide an url'));
+    }
   });
   // fail('Teste vazio');
 });
