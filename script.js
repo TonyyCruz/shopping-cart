@@ -104,27 +104,41 @@ const preloadOff = () => {
 };
 
 //  adiciona funcionalidade ao botão adicionar a carrinho <====***********
-const addCartButtonConfig = (obj, id) => {
-  const butt = obj.querySelector('.item__add');
-  butt.addEventListener('click', async () => {
-  const cardItem = await fetchItem(id); //  recebe o objeto do item pelo id
-  const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
-  const itemAdd = createCartItemElement({ sku, name, salePrice, image });
-  cartIems.appendChild(itemAdd);
-  cartStatusReload();
+// const addCartButtonConfig = (obj, id) => {
+//   const butt = obj.querySelector('.item__add');
+//   butt.addEventListener('click', async () => {
+//   const cardItem = await fetchItem(id); //  recebe o objeto do item pelo id
+//   const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
+//   const itemAdd = createCartItemElement({ sku, name, salePrice, image });
+//   cartIems.appendChild(itemAdd);
+//   cartStatusReload();
+//   });
+// };
+
+const addCartButtonConfig = () => { // ************************************************************88
+  items.childNodes.forEach((item) => {
+    const butt = item.querySelector('button');
+    const id = getSkuFromProductItem(item);
+    butt.addEventListener('click', async () => {
+      const cardItem = await fetchItem(id);
+      const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
+      const itemAdd = createCartItemElement({ sku, name, salePrice, image });
+      cartIems.appendChild(itemAdd);
+      cartStatusReload();
+    });
   });
 };
 
-//  envia o item buscado  para "fetchProducts()" que envia um array com os itens <====
+//  envia o item buscado  para "fetchProducts()", e recebe um array com os itens <====
 // depois envia os itens para "createProductItemElement()" que monta o item no site.
 const displayItems = async (find) => {
   const itemsArray = await fetchProducts(find);
   itemsArray.results.forEach((make) => {
     const { id: sku, title: name, thumbnail: image } = make;
     const element = createProductItemElement({ sku, name, image });
-    addCartButtonConfig(element, sku);
     items.appendChild(element);
   });
+  addCartButtonConfig();//  chama a função que adiciona o escutador ao botao.
 };
 
 //  recupera os itens do storage e os poe novamente no carrinho<====
