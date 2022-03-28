@@ -16,7 +16,7 @@ describe('4 - Teste a função saveCartItems', () => {
     expect.assertions(1);
     const ol = '<ol><li>Item</li></ol>';
     saveCartItems(ol);
-    expect(localStorage.setItem).toHaveBeenCalledWith('cartItems', ol.innertext);
+    expect(localStorage.setItem).toHaveBeenCalledWith('cartItems', ol);
   });
 
   // fail('Teste vazio');
