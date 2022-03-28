@@ -103,19 +103,8 @@ const preloadOff = () => {
   container.style.display = 'flex';
 };
 
-//  adiciona funcionalidade ao botão adicionar a carrinho <====***********
-// const addCartButtonConfig = (obj, id) => {
-//   const butt = obj.querySelector('.item__add');
-//   butt.addEventListener('click', async () => {
-//   const cardItem = await fetchItem(id); //  recebe o objeto do item pelo id
-//   const { id: sku, title: name, price: salePrice, thumbnail: image } = cardItem;
-//   const itemAdd = createCartItemElement({ sku, name, salePrice, image });
-//   cartIems.appendChild(itemAdd);
-//   cartStatusReload();
-//   });
-// };
-
-const addCartButtonConfig = () => { // ************************************************************88
+//  adiciona funcionalidade ao botão adicionar a carrinho <====
+const addCartButtonConfig = () => {
   items.childNodes.forEach((item) => {
     const butt = item.querySelector('button');
     const id = getSkuFromProductItem(item);
