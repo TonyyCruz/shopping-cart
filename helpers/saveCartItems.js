@@ -1,5 +1,5 @@
 const saveCartItems = (content) => {
-  localStorage.clear();
+  // localStorage.clear();
   localStorage.setItem('cartItems', content.innerHTML);
 };
 

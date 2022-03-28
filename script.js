@@ -72,6 +72,7 @@ const cartItensSum = async () => {
 const cartStatusReload = () => {
   carReset();
   cartItensSum();
+  localStorage.clear();
   saveCartItems(cartIems); //  salva os itens do carrinho no localstorage
 };
 
