@@ -3,6 +3,7 @@ const cartIems = document.querySelector('.cart__items');
 const emptyCart = document.querySelector('.empty-cart');
 const container = document.querySelector('.container');
 const body = document.querySelector('body');
+const btnFind = document.querySelector('#btn-find');
 
 //
 
@@ -121,6 +122,7 @@ const addCartButtonConfig = () => {
 //  envia o item buscado  para "fetchProducts()", e recebe um array com os itens <====
 // depois envia os itens para "createProductItemElement()" que monta o item no site.
 const displayItems = async (find) => {
+  if (!find) { throw new Error('Digite um item valido'); }
   const itemsArray = await fetchProducts(find);
   itemsArray.results.forEach((make) => {
     const { id: sku, title: name, thumbnail: image } = make;
@@ -152,8 +154,24 @@ emptyCart.addEventListener('click', () => {
   cartStatusReload();
 });
 
-//
+//  ---------------------------------- conteudo abaixo não faz parte do projeto -------------------------------
 
+//  limpa a busca anterior.
+const clearItemsFinded = () => {
+  const findedItems = document.querySelectorAll('.item');
+  findedItems.forEach((element) => {
+    items.removeChild(element);
+  });
+};
+
+//  adiciona funcionalidade a busca de produto no site.
+btnFind.addEventListener('click', async () => {
+  clearItemsFinded();
+  const input = document.querySelector('#input-find');
+  await displayItems(input.value);
+});
+
+//  o onload faz parte do projeto !!!!!!!
 window.onload = async () => {
   createLoadingDiv();
   await displayItems('botebook');
